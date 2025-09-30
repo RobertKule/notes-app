@@ -1,76 +1,45 @@
 import { useState } from "react";
-import { FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import AddNoteModal from "../../components/AddNoteModal";
+import NoteList from "../../components/NoteList";
 
 const NoteScreen = () => {
     // Sample notes data for demonstration and testing usestate
     const [notes, setNotes] = useState([
-        { id: '1', text: 'Note one' },
-        { id: '2', text: 'Note two' },
-        { id: '3', text: 'Note three' },
-        { id: '4', text: 'Note four' },
-        { id: '5', text: 'Note five' },
-        { id: '6', text: 'Note six' },
-        { id: '7', text: 'Note seven' },
-        { id: '8', text: 'Note eight' },
-        { id: '9', text: 'Note nine' },
-        { id: '10', text: 'Note ten' }, 
+        { id: '1', texte: 'Note one' },
+        { id: '2', texte: 'Note two' },
+        { id: '3', texte: 'Note three' },
+        // { id: '4', texte: 'Note four' },
+        // { id: '5', texte: 'Note five' },
+        // { id: '6', texte: 'Note six' },
+        // { id: '7', texte: 'Note seven' },
+        // { id: '8', texte: 'Note eight' },
+        // { id: '9', texte: 'Note nine' },
+        // { id: '10', texte: 'Note ten' }, 
     ]);
     const [ModalVisible, setModalVisible] = useState(false);
     const [newnote, setNewnote] = useState('');
 
     return ( 
         <View style={styles.container}>
-            <FlatList
-                data={notes}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={styles.noteItem}>
-                        <Text style={styles.note}>{item.text}</Text>
-                    </View>
-                )}
-            />
+            <NoteList notes={notes} />
+
             <TouchableOpacity style={styles.buttonAdd} onPress={() => setModalVisible(true)}>
                 <Text style={styles.buttonAddtext}>+ Add Note</Text>
             </TouchableOpacity>
-            <Modal 
-            visible={ModalVisible} 
-            animationType="slide" 
-            transparent={true}
-            onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
-                        <text style={styles.modalTitle}>Add New Note</text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Enter your note here"
-                            value={newnote}
-                            onChangeText={setNewnote}
-                        />
-                        <View style={styles.modalButtons}>
-                            <TouchableOpacity
-                                style={styles.modalButton}
-                                onPress={() => {
-                                    if (newnote.trim()) {
-                                        setNotes([...notes, { id: Date.now().toString(), text: newnote }]);
-                                        setNewnote('');
-                                        setModalVisible(false);
-                                    }
-                                }}
-                            >
-                                <Text style={styles.modalButtonText}>Save</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[styles.modalButton, styles.modalCancelButton]}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <Text style={styles.modalButtonText}>Cancel</Text>
-                            </TouchableOpacity>
-                        </View> 
 
-                    </View>
-                </View>
-            </Modal>
+            <AddNoteModal
+                modalVisible={ModalVisible}
+                setModalVisible={setModalVisible}
+                newnote={newnote}
+                setNewnote={setNewnote}
+                addNote={() => {
+                    if (newnote.trim()) {
+                        setNotes([...notes, { id: (notes.length + 1).toString(), texte: newnote }]);
+                        setNewnote('');
+                    }
+                }}
+            />
 
         </View>
      );
