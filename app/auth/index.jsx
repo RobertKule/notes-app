@@ -38,7 +38,6 @@ const AuthScreen = () => {
     const response = await login(email, password);
 
     setLoading(false);
-
     if (response?.error) {
       setError(response.error);
     }
@@ -59,7 +58,6 @@ const AuthScreen = () => {
     const response = await register(email, password);
 
     setLoading(false);
-
     if (response?.error) {
       setError(response.error);
     }
@@ -67,7 +65,7 @@ const AuthScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{isRegistering ? "Register" : "Login"}</Text>
+      <Text style={styles.title}>{isRegistering ? "Sign Up" : "Login"}</Text>
 
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
