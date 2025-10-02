@@ -76,20 +76,22 @@ const styles = StyleSheet.create({
         color: '#00008b',
     },
     input: {
-        height: 100,
+        height: 50,
+        backgroundColor: '#f0f0f0',
+        width: '100%',
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,
         padding: 10,
         marginBottom: 15,
-        textAlignVertical: 'top',
+        textAlignVertical: 'top'
     },
     modalButtons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
     modalButton: {
-        backgroundColor: '#00008b',
+        backgroundColor: '#ff8c00',
         padding: 10,
         borderRadius: 5,
         flex: 1,
